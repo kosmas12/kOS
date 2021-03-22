@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef KOS_TIMING_H
 #define KOS_TIMING_H
 
+/* TODO: This is highly dependent on CPU speed and compiler optimizations, add better implementation */
 void delay(int t) {
     volatile int i;
     volatile int j;

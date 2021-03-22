@@ -15,6 +15,10 @@ It can then be burnt into media, or written to a disk
 image. It must always be in the first sector of the
 media/image.
 
+This bootloader has been deprecated in favor of the below
+GRUB + Stage 2 bootloader, and is kept only for research
+purposes
+
 # Stage 2 Bootloader
 kOS has switched from using a stage 1 bootloader to using
 GRUB + a stage 2 bootloader. This provides several
