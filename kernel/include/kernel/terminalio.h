@@ -17,27 +17,34 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#if defined(__linux__)
-#error "You are not using a cross-compiler, this won't work"
-#endif
+#ifndef KOS_TERMINALIO_H
+#define KOS_TERMINALIO_H
 
-#if !defined(__i386__)
-#error "This kernel is designed for 32 bit systems, please use a compiler that targets i686"
-#endif
-
-#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
-#include "include/stdlib.h"
-#include "include/vgaterminalio.h"
-#include "include/timing.h"
 
-// Ignore any warnings saying this isn't used, it's called by the bootloader
-void kernel_main(void) {
-    terminalInit();
+/* Clear the terminal */
+void terminalClearScreen();
 
-    while (true) {
-        delay(100);
-        terminalPrint("Testing... ");
-    }
-}
+/* Initialize the terminal */
+void terminalInit(void);
+
+/* Scroll up the terminal */
+void terminalScrollUp();
+
+/* Set the terminal color */
+void terminalSetColor(uint8_t color);
+
+/* Write character with color and position */
+void terminalWriteVGA(char c, uint8_t color, size_t x, size_t y);
+
+/* Write a character at the current cursor position in the terminal */
+void terminalPutChar(char c);
+
+/* Write as many bytes as we want from a char pointer, recommended to use terminalPrint instead */
+void terminalPrintData(const char* data, size_t size);
+
+/* Write a string to the terminal */
+void terminalPrint(const char* data);
+
+#endif //KOS_TERMINALIO_H

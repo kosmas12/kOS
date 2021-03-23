@@ -24,20 +24,13 @@ kOS has switched from using a stage 1 bootloader to using
 GRUB + a stage 2 bootloader. This provides several
 benefits, most notably easily booting off of multiple
 types of media with no changes to kOS' bootloader, and
-also multiboot support. To compile:
-
-```
-cd bootloader/stage2
-make
-```
+also multiboot support.
 
 # Compiling the kernel
-Compiling kOS is pretty simple, all you need to do is
-run  `make bootdisk` on the project root directory
-and it will automatically build everything that's required
-and create a bootable disk image that can be used on a
-virtual machine or on an actual x86 computer. Just make
-sure to have anything that `grub-mkrescue` needs to make
-the image preinstalled (`xorriso` and `mtools`). You can
-also directly test with `qemu-system-i386` by running
-`make qemu`.
+Compiling kOS is rather simple. All you need to do is run:
+```shell
+./build.sh # Build object files
+./iso.sh # Generate bootable ISO 
+```
+You can also test this on `qemu-system-i386` by running
+`./qemu.sh`

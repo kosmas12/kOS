@@ -1,53 +1,7 @@
-/*
-kOS - An operating system made for fun
-Copyright (C) 2021 Kosmas Raptis
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
-
-#ifndef KOS_VGATERMINALIO_H
-#define KOS_VGATERMINALIO_H
-
-enum VGAColors {
-    VGA_COLOR_BLACK = 0,
-    VGA_COLOR_BLUE = 1,
-    VGA_COLOR_GREEN = 2,
-    VGA_COLOR_CYAN = 3,
-    VGA_COLOR_RED = 4,
-    VGA_COLOR_MAGENTA = 5,
-    VGA_COLOR_BROWN = 6,
-    VGA_COLOR_LIGHT_GREY = 7,
-    VGA_COLOR_DARK_GREY = 8,
-    VGA_COLOR_LIGHT_BLUE = 9,
-    VGA_COLOR_LIGHT_GREEN = 10,
-    VGA_COLOR_LIGHT_CYAN = 11,
-    VGA_COLOR_LIGHT_RED = 12,
-    VGA_COLOR_LIGHT_MAGENTA = 13,
-    VGA_COLOR_LIGHT_BROWN = 14,
-    VGA_COLOR_WHITE = 15,
-};
-
-/* Produce a VGA color */
-static inline uint8_t VGAColor(enum VGAColors fg, enum VGAColors bg) {
-    return fg | bg << 4;
-}
-
-/* Produce a letter with foreground and background colors */
-static inline uint16_t VGAEntry(unsigned char uc, uint8_t color) {
-    return (uint16_t) uc | (uint16_t) color << 8;
-}
+#include <stdint.h>
+#include "vga.h"
+#include <string.h>
+#include <kernel/terminalio.h>
 
 static const size_t VGA_WIDTH = 80;
 static const size_t VGA_HEIGHT = 25;
@@ -130,5 +84,3 @@ void terminalPrintData(const char* data, size_t size) {
 void terminalPrint(const char* data) {
     terminalPrintData(data, strlen(data));
 }
-
-#endif //KOS_VGATERMINALIO_H
