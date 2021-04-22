@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 
 #include <stdio.h>
+#include "gdt/gdt.h"
 #include "../irq/idt.h"
 #include "../keyboard/keyboard.h"
 #include <kernel/terminalio.h>
@@ -33,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // Kernel entry point. Ignore any warnings saying this isn't used, it's called by the bootloader
 void kernel_main(void) {
     terminalInit();
+
+    GDTInstall();
 
     IDTInit();
     kbInit();

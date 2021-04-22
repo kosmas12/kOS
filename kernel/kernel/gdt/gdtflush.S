@@ -17,31 +17,17 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#include "../irq/idt.h"
-#include "keyboard.h"
-#include "kbmap.h"
-#include <stdio.h>
+.global GDTFlush
+.extern gp
 
-void kbInit(void) {
-    // Enable IRQ1 *ONLY* (required for keyboard)
-    writePort(PIC1_DATA_PORT, 0xFD);
-}
-
-void keyboardHandlerMain(void) {
-    unsigned char status;
-    char keycode;
-
-    /* write EOI */
-    writePort(PIC1_COMMAND_PORT, 0x20);
-
-    status = readPort(KEYBOARD_COMMAND_PORT);
-    /* Lowest bit of status will be set if buffer is not empty */
-    if (status & 0x01) {
-        keycode = readPort(KEYBOARD_DATA_PORT);
-        if(keycode < 0) {
-            return;
-        }
-
-        putchar(keyboardMap[(unsigned char) keycode]);
-    }
-}
+GDTFlush:
+    lgdt (gp)
+    mov $0x10, %ax      // 0x10 is the offset in the GDT to the data segment
+    mov %ax, %ds
+    mov %ax, %es
+    mov %ax, %fs
+    mov %ax, %gs
+    mov %ax, %ss
+    jmp $0x08, $flush2
+flush2:
+    ret                // Returns back to C code
