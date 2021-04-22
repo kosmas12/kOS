@@ -25,17 +25,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #error "This kernel is designed for 32 bit systems, please use a compiler that targets i686"
 #endif
 
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdint.h>
 #include <stdio.h>
+#include "../irq/idt.h"
+#include "../keyboard/keyboard.h"
 #include <kernel/terminalio.h>
 
-// Ignore any warnings saying this isn't used, it's called by the bootloader
+// Kernel entry point. Ignore any warnings saying this isn't used, it's called by the bootloader
 void kernel_main(void) {
     terminalInit();
 
-    printf("Testing...\n");
-    printf("If you're reading this, you have voided your warranty. (Just kidding)");
+    IDTInit();
+    kbInit();
+
+    // With our inits above, we can respond to user input despite the empty infinite loop
+    while (1);
 
 }

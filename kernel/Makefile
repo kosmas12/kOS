@@ -30,6 +30,12 @@ LIBS:=$(LIBS) $(KERNEL_ARCH_LIBS)
 KERNEL_OBJS=\
 $(KERNEL_ARCH_OBJS) \
 kernel/kernel.o \
+irq/idt.o \
+irq/loadidt.o \
+irq/readwriteport.o \
+keyboard/kbhandler.o \
+keyboard/keyboard.o \
+
 
 OBJS=\
 $(ARCHDIR)/crti.o \
