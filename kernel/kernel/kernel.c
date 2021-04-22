@@ -1,5 +1,5 @@
 /*
-kOS - An operating system made for fun
+This file is part of kOS - An operating system made for fun
 Copyright (C) 2021 Kosmas Raptis
 
 This program is free software; you can redistribute it and/or
