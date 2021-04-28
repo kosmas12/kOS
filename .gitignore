@@ -4,3 +4,5 @@
 **/.iso
 **/.libk
 **/.a
+CMakeLists.txt
+cmake-build-debug

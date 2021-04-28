@@ -42,5 +42,4 @@ void kernel_main(void) {
 
     // With our inits above, we can respond to user input despite the empty infinite loop
     while (1);
-
 }
