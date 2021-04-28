@@ -21,15 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define KOS_TIMING_H
 
 /* FIXME: This is highly dependent on CPU speed and compiler optimizations, add better implementation */
-void delay(int t) {
-    volatile int i;
-    volatile int j;
-
-    for(i=0; i<t; i++) {
-        for (j = 0; j < 300000; j++) {
-            __asm__("NOP");
-        }
-    }
-}
+void delay(int t);
 
 #endif //KOS_TIMING_H

@@ -21,11 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define KOS_STDLIB_H
 
 /* Return string length (NOT INCLUDING NULL TERMINATOR) */
-size_t strlen(const char* str) {
-    size_t len = 0;
-    while (str[len])
-        len++;
-    return len;
-}
+size_t strlen(const char* str);
 
 #endif //KOS_STDLIB_H

@@ -25,14 +25,9 @@ enum VGAColors {
 };
 
 /* Produce a VGA color */
-static inline uint8_t VGAColor(enum VGAColors fg, enum VGAColors bg) {
-    return fg | bg << 4;
-}
+static inline uint8_t VGAColor(enum VGAColors fg, enum VGAColors bg);
 
 /* Produce a letter with foreground and background colors */
-static inline uint16_t VGAEntry(unsigned char uc, uint8_t color) {
-    return (uint16_t) uc | (uint16_t) color << 8;
-}
-
+static inline uint16_t VGAEntry(unsigned char uc, uint8_t color);
 
 #endif //KOS_VGA_H

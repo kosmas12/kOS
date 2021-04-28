@@ -17,12 +17,12 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-#if defined(__linux__)
-#error "You are not using a cross-compiler, this won't work"
+#ifdef __linux__
+#error "Cross-compilation requried to produce kernel"
 #endif
 
-#if !defined(__i386__)
-#error "This kernel is designed for 32 bit systems, please use a compiler that targets i686"
+#ifndef __i386__
+#error "Kernel only supports 32-bit"
 #endif
 
 #include <stdio.h>
@@ -42,5 +42,4 @@ void kernel_main(void) {
 
     // With our inits above, we can respond to user input despite the empty infinite loop
     while (1);
-
 }

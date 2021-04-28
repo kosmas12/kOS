@@ -17,7 +17,7 @@ void terminalClearScreen() {
     for (size_t y = 0; y < VGA_HEIGHT; y++) {
         for (size_t x = 0; x < VGA_WIDTH; x++) {
             const size_t index = y * VGA_WIDTH + x;
-            terminalBuffer[index] = VGAEntry(' ', terminalColor);
+            terminalBuffer[index] = VGAEntry(' ', terminalColor); // maybe use '\0' ?
         }
     }
 }
@@ -34,14 +34,12 @@ void terminalInit(void) {
 /* Scroll up the terminal */
 void terminalScrollUp() {
     /* Each line has the characters of the next one */
-    for(size_t i = 0; i < (VGA_WIDTH*VGA_HEIGHT-VGA_WIDTH); i++) {
+    for(size_t i = 0; i < (VGA_WIDTH*VGA_HEIGHT-VGA_WIDTH); i++)
         terminalBuffer[i] = terminalBuffer[i+VGA_WIDTH];
-    }
 
     /* Fill last line with spaces */
-    for(size_t i = 0; i < VGA_WIDTH; i++) {
+    for(size_t i = 0; i < VGA_WIDTH; i++)
         terminalBuffer[(VGA_HEIGHT - 1) * VGA_WIDTH + i] = VGAEntry(' ', terminalColor);
-    }
 }
 
 /* Set the terminal color */
@@ -62,22 +60,24 @@ void terminalPutChar(char c) {
 
     if (terminalColumn == VGA_WIDTH || c == '\n') {
         terminalColumn = 0;
-        if (terminalRow == VGA_HEIGHT - 1) {
+
+        if (terminalRow == VGA_HEIGHT - 1)
             terminalScrollUp();
-        }
-        else {
+        else
             terminalRow++;
-        }
     }
-    if (c == '\n') return; // Nothing else has to be done if newline
+
+    // Nothing else can be done if newline
+    if (c == '\n')
+            return;
+    
     terminalWriteVGA(c, terminalColor, terminalColumn++, terminalRow);
 }
 
 /* Write as many bytes as we want from a char pointer, recommended to use terminalPrint instead */
 void terminalPrintData(const char* data, size_t size) {
-    for (size_t i = 0; i < size; i++) {
+    for (size_t i = 0; i < size; i++)
         terminalPutChar(data[i]);
-    }
 }
 
 /* Write a string to the terminal */
