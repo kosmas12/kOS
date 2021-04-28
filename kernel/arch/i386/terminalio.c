@@ -65,11 +65,11 @@ void terminalPutChar(char c) {
             terminalScrollUp();
         else
             terminalRow++;
-
     }
 
+    // Nothing else can be done if newline
     if (c == '\n')
-            return; // Nothing else has to be done if newline
+            return;
     
     terminalWriteVGA(c, terminalColor, terminalColumn++, terminalRow);
 }
