@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "keyboard.h"
 #include "kbmap.h"
 #include <stdio.h>
+#include <stdint.h>
+#include <kernel/terminalio.h>
+
+uint8_t caps = 0;
 
 void kbInit(void) {
     // Enable IRQ1 *ONLY* (required for keyboard)
@@ -38,8 +42,42 @@ void keyboardHandlerMain(void) {
     /* Lowest bit of status will be set if buffer is not empty */
     if (status & 0x01) {
         keycode = readPort(KEYBOARD_DATA_PORT);
+
         if(keycode < 0) {
             return;
+        }
+
+        if (keycode == 0x3A) {
+            caps = !caps;
+            return;
+        }
+
+        if (keycode == 0x0E) {
+            if (terminalGetCursorX() == 0 && terminalGetCursorY() > 0) {
+                terminalSetCursorPosition(79, terminalGetCursorY() - 1);
+            }
+            else if (terminalGetCursorX() > 0){
+                terminalSetCursorPosition(terminalGetCursorX() - 1, terminalGetCursorY());
+            }
+
+            putchar(' ');
+
+            if (terminalGetCursorX() == 0 && terminalGetCursorY() > 0) {
+                terminalSetCursorPosition(79, terminalGetCursorY() - 1);
+            }
+            else if (terminalGetCursorX() > 0){
+                terminalSetCursorPosition(terminalGetCursorX() - 1, terminalGetCursorY());
+            }
+
+            return;
+        }
+
+        if (caps) {
+            if (keyboardMap[(unsigned char) keycode] >= 'a' && keyboardMap[(unsigned char) keycode] <= 'z') {
+                // Do some ASCII table magic
+                putchar(keyboardMap[(unsigned char) keycode] - 32);
+                return;
+            }
         }
 
         putchar(keyboardMap[(unsigned char) keycode]);

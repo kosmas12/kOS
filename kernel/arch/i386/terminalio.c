@@ -11,6 +11,29 @@ size_t terminalColumn;
 uint8_t terminalColor;
 uint16_t *terminalBuffer;
 
+void terminalSetCursorPosition(size_t x, size_t y) {
+    if (x > 0) {
+        terminalColumn = x;
+    }
+    else {
+        terminalColumn = 0;
+    }
+    if (y > 0) {
+        terminalRow = y;
+    }
+    else {
+        terminalRow = 0;
+    }
+}
+
+size_t terminalGetCursorX() {
+    return terminalColumn;
+}
+
+size_t terminalGetCursorY() {
+    return terminalRow;
+}
+
 /* Clear the terminal */
 void terminalClearScreen() {
     /* Fill entire screen with spaces */
