@@ -26,5 +26,5 @@ jobs:
     - name: Upload ISO and source code
       uses: actions/upload-artifact@v2.2.4
       with:
-        name: kOS.zip
+        name: kOS
         path: ./   
