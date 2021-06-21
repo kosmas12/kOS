@@ -1,0 +1,30 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    - name: Install dependencies
+      run: sudo apt install grub2 xorriso clang llvm lld make
+    
+    - uses: actions/checkout@v2
+    - name: Build object files
+      run: ./build.sh
+      
+    - name: Generate kOS ISO image
+      run: ./iso.sh
+      
+    - name: Upload ISO and source code
+      uses: actions/upload-artifact@v2.2.4
+      with:
+        name: kOS.zip
+        path: ./   
