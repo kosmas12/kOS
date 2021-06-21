@@ -23,8 +23,7 @@ jobs:
     - name: Generate kOS ISO image
       run: ./iso.sh
       
-    - name: Upload ISO and source code
-      uses: actions/upload-artifact@v2.2.4
+    - name: Upload Release with ISO and source code
+      uses: softprops/action-gh-release@v0.1.5
       with:
-        name: kOS
-        path: ./   
+        files: ./*   
