@@ -13,7 +13,7 @@ export BOOTDIR=/boot
 export LIBDIR=$EXEC_PREFIX/lib
 export INCLUDEDIR=$PREFIX/include
 
-export CFLAGS='-O2 -g -m32 -target i386-none-elf -nostdlib'
+export CFLAGS='-O2 -g -m32 -target i386-none-elf -nostdlib -Wall -Wextra -pedantic'
 export CPPFLAGS=''
 
 # Configure gcc to use kOS' sysroot.

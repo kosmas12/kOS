@@ -30,3 +30,4 @@ writePort:
 	movb  8(%esp), %al
 	outb  %al, %dx
 	ret
+

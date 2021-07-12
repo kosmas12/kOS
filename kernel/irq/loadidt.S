@@ -24,3 +24,4 @@ loadIDT:
 	lidt (%edx)
 	sti 				// turn on interrupts
 	ret
+
