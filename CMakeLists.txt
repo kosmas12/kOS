@@ -20,4 +20,4 @@ if(MATCHED)
 endif()
 
 add_subdirectory(libc)
-add_subdirectory(kernel)
+add_subdirectory(Kernel)
