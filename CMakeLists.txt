@@ -38,7 +38,7 @@ if(MATCHED)
     find_program(LD_LLD NAMES ld.lld REQUIRED)
     set(CMAKE_C_LINK_EXECUTABLE "\"${LD_LLD}\" <OBJECTS> -o <TARGET> <LINK_LIBRARIES> <LINK_FLAGS>")
 else()
-    add_link_options(--target=i386-pc-none)
+    add_link_options(--target=i386-pc-none) # TODO: fix LLD's problems
 endif()
 
 add_subdirectory(libc)
