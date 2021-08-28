@@ -2,7 +2,7 @@ project(kOS.Kernel LANGUAGES ASM C VERSION 1.0.0)
 
 add_executable(kOS.Kernel
     ${CMAKE_CURRENT_LIST_DIR}/Includes/Kernel/TerminalIO.h
-    ${CMAKE_CURRENT_LIST_DIR}/Includes/timing.h
+    ${CMAKE_CURRENT_LIST_DIR}/Includes/Timing.h
 
     ${CMAKE_CURRENT_LIST_DIR}/Sources/Platforms/i386/Bootloader.s
     ${CMAKE_CURRENT_LIST_DIR}/Sources/Platforms/i386/CRTi.s
