@@ -13,8 +13,11 @@ endif()
 
 add_compile_options(--target=i386-pc-none -m32 -D__is_libk)
 
-find_program(LD_LLD NAMES ld.lld REQUIRED)
-set(CMAKE_C_LINK_EXECUTABLE "\"${LD_LLD}\" <OBJECTS> -o <TARGET> <LINK_LIBRARIES> <LINK_FLAGS>")
+string(REGEX MATCH "Windows-?" MATCHED ${CMAKE_HOST_SYSTEM})
+if(MATCHED)
+    find_program(LD_LLD NAMES ld.lld REQUIRED)
+    set(CMAKE_C_LINK_EXECUTABLE "\"${LD_LLD}\" <OBJECTS> -o <TARGET> <LINK_LIBRARIES> <LINK_FLAGS>")
+endif()
 
 add_subdirectory(libc)
 add_subdirectory(kernel)

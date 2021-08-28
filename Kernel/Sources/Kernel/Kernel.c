@@ -28,10 +28,11 @@
 #endif
 
 #include <stdio.h>
-#include "gdt/gdt.h"
-#include "../irq/idt.h"
-#include "../keyboard/keyboard.h"
-#include <kernel/terminalio.h>
+
+#include "GDT/GDT.h"
+#include "../IRQ/IDT.h"
+#include "../Keyboard/Keyboard.h"
+#include <Kernel/TerminalIO.h>
 
 // Kernel entry point. Ignore any warnings saying this isn't used, it's called by the bootloader
 void kernel_main(void) {
