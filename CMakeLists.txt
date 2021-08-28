@@ -31,13 +31,14 @@ if(NOT ${CMAKE_ASM_COMPILER_ID} STREQUAL "Clang" OR NOT ${CMAKE_C_COMPILER_ID} S
 endif()
 
 add_compile_options(--target=i386-unknown -m32 -fPIC)
+add_link_options(-nostdlib)
 
 string(REGEX MATCH "Windows-?" MATCHED ${CMAKE_HOST_SYSTEM})
 if(MATCHED)
     find_program(LD_LLD NAMES ld.lld REQUIRED)
     set(CMAKE_C_LINK_EXECUTABLE "\"${LD_LLD}\" <OBJECTS> -o <TARGET> <LINK_LIBRARIES> <LINK_FLAGS>")
 else()
-    add_link_options(-fuse-ld=lld)
+    add_compile_options(-fuse-ld=lld)
     add_link_options(--target=i386-pc-none)
 endif()
 

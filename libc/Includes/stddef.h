@@ -20,13 +20,8 @@
 #pragma once
 
 #include <sys/cdefs.h>
+#include <stdint.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#define NULL ((void*)0)
 
-__attribute__((__noreturn__)) void abort(void);
-
-#ifdef __cplusplus
-}
-#endif
+typedef uint32_t size_t; // TODO: change this to uint64_t once we make a 64 bit version

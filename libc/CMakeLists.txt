@@ -21,6 +21,9 @@ project(kOS.libc LANGUAGES C VERSION 1.0.0)
 
 add_library(kOS.libc STATIC
     ${CMAKE_CURRENT_LIST_DIR}/Includes/sys/cdefs.h
+    ${CMAKE_CURRENT_LIST_DIR}/Includes/stdbool.h
+    ${CMAKE_CURRENT_LIST_DIR}/Includes/stddef.h
+    ${CMAKE_CURRENT_LIST_DIR}/Includes/stdint.h
     ${CMAKE_CURRENT_LIST_DIR}/Includes/stdio.h
     ${CMAKE_CURRENT_LIST_DIR}/Includes/stdlib.h
     ${CMAKE_CURRENT_LIST_DIR}/Includes/string.h

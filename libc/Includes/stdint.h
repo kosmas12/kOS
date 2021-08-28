@@ -21,12 +21,12 @@
 
 #include <sys/cdefs.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+//static_assert(sizeof(char) == 1, "char must be 1 byte large");
 
-__attribute__((__noreturn__)) void abort(void);
+typedef char int8_t;
+typedef short int16_t;
+typedef int int32_t;
 
-#ifdef __cplusplus
-}
-#endif
+typedef unsigned char uint8_t;
+typedef unsigned short uint16_t;
+typedef unsigned int uint32_t;
