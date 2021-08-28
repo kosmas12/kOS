@@ -1,0 +1,35 @@
+name: Main
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build (Ubuntu)
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v2
+
+    - name: Create build environment
+      run: cmake -E make_directory ${{runner.workspace}}/build
+
+    - name: Configure
+      shell: bash
+      working-directory: ${{runner.workspace}}/build
+      run: ASM=$(which clang) CC=$(which clang) CXX=$(which clang++) cmake $GITHUB_WORKSPACE -G Ninja
+
+    - name: Build
+      working-directory: ${{runner.workspace}}/build
+      shell: bash
+      run: cmake --build . --config Release
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: kOS-${{ github.run_number }}
+        if-no-files-found: error
+        path: |
+          ${{runner.workspace}}/build/kernel/kOS.Kernel
+
+# TODO: build an ISO and push it as another artifact
