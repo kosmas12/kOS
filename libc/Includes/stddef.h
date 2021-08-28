@@ -22,6 +22,8 @@
 #include <sys/cdefs.h>
 #include <stdint.h>
 
+// TODO: define more stuff:tm:
+
 #define NULL ((void*)0)
 
 typedef uint32_t size_t; // TODO: change this to uint64_t once we make a 64 bit version

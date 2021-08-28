@@ -22,12 +22,5 @@
 #include <sys/cdefs.h>
 
 // TODO: define more stuff:tm:
-// TODO: assert that the compiler provides us with the proper sizes
 
-typedef char int8_t;
-typedef short int16_t;
-typedef int int32_t;
-
-typedef unsigned char uint8_t;
-typedef unsigned short uint16_t;
-typedef unsigned int uint32_t;
+#define INT_MAX 0xffffffff
