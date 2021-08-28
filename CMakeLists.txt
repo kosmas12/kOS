@@ -30,7 +30,22 @@ if(NOT ${CMAKE_ASM_COMPILER_ID} STREQUAL "Clang" OR NOT ${CMAKE_C_COMPILER_ID} S
     message(FATAL_ERROR "kOS does not support GCC, MSVC and other compilers other than LLVM.")
 endif()
 
-add_compile_options(--target=i386-unknown -m32 -fPIC)
+add_compile_options(
+    --target=i386-unknown
+    -m32
+
+    -fPIC
+    -ffreestanding
+    -fno-builtin
+
+    -nostdinc
+    -nostdinc++
+
+    -Wall
+    -Werror
+    -Wno-unused-command-line-argument
+)
+
 add_link_options(-nostdlib)
 
 string(REGEX MATCH "Windows-?" MATCHED ${CMAKE_HOST_SYSTEM})
