@@ -1,0 +1,26 @@
+DFS Standard
+File index format
+Each '-' is a byte
+'n-' means n bytes
+<----><-><128-><----><-><----><-------->
+ 1     2  3     4     5  6     6
+
+1: File index (32bit number)
+2: File/Folder? (1 bit - 1 is folder, 0 is file)
+3: Name (128 bytes of UTF-8 data)
+4: Parent folder (32bit file index - set 5 to 1 if this the root folder)
+5: Root folder flag (1bit - 1 if root folder)
+6: CRC-32 (Just for redundancy - you can't actually get the data back from this afaik)
+7: Start sector on disk
+
+File storage format
+Each '-' is a byte
+'....' is variable length data
+<----><--------><--------><----><....>
+ 1     2         3         4     5
+
+1: File index on table (32bit number)
+2: Next sector (64bit number - 0xffffffffffffffff if this is the last sector)
+3: Last sector (64bit number - 0xffffffffffffffff if this is the first sector)
+4: Length of data on sector
+5: Data
