@@ -11,6 +11,9 @@ jobs:
     - name: Clone repository
       uses: actions/checkout@v2
 
+    - name: Set up Ninja
+      uses: seanmiddleditch/gha-setup-ninja@master
+
     - name: Create build environment
       run: cmake -E make_directory ${{runner.workspace}}/build
 
