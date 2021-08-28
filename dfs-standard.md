@@ -1,3 +1,4 @@
+
 # DFS Standard
 ## Key
 Each '-' is a byte
@@ -7,8 +8,7 @@ Each '-' is a byte
 ## File index format
 
 ### Layout
-`<----><128-><----><-><----><-------->`<br>
-` 1     2     3     4  5     6`
+`<----1><128-2><----3><-4><----5><--------6>`
 
 ### Layout key
 1) File index (32 bit number)<br>
@@ -21,8 +21,7 @@ Each '-' is a byte
 ## File storage format
 
 ### Layout
-`<----><--------><--------><----><....>`<br>
-` 1     2         3         4     5`
+`<----1><--------2><--------3><----4><....5>`
 
 ### Layout key
 1) File index on table (32bit number)<br>
