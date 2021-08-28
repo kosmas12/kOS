@@ -38,6 +38,7 @@ if(MATCHED)
     set(CMAKE_C_LINK_EXECUTABLE "\"${LD_LLD}\" <OBJECTS> -o <TARGET> <LINK_LIBRARIES> <LINK_FLAGS>")
 else()
     add_link_options(-fuse-ld=lld)
+    add_link_options(--target=i386-pc-none)
 endif()
 
 add_subdirectory(libc)
