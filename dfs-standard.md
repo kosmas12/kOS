@@ -1,5 +1,11 @@
 
 # DFS Standard
+
+## Preamble
+The Deranged File System (shortened as DFS) is the main file system to be used with kOS.  
+The current version is made for 32-bit machines.
+
+
 ## Key
 Each '-' is a byte
 'n-' means n bytes
