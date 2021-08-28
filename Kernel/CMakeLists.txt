@@ -24,23 +24,20 @@ add_executable(kOS.Kernel
     ${CMAKE_CURRENT_LIST_DIR}/Includes/Timing.h
 
     ${CMAKE_CURRENT_LIST_DIR}/Sources/Platforms/i386/Bootloader.s
-    ${CMAKE_CURRENT_LIST_DIR}/Sources/Platforms/i386/CRTi.s
-    ${CMAKE_CURRENT_LIST_DIR}/Sources/Platforms/i386/CRTn.s
+    ${CMAKE_CURRENT_LIST_DIR}/Sources/Platforms/i386/CRT.s
     ${CMAKE_CURRENT_LIST_DIR}/Sources/Platforms/i386/TerminalIO.c
     ${CMAKE_CURRENT_LIST_DIR}/Sources/Platforms/i386/VGA.h
 
     ${CMAKE_CURRENT_LIST_DIR}/Sources/IRQ/IDT.c
     ${CMAKE_CURRENT_LIST_DIR}/Sources/IRQ/IDT.h
-    ${CMAKE_CURRENT_LIST_DIR}/Sources/IRQ/LoadIDT.s
-    ${CMAKE_CURRENT_LIST_DIR}/Sources/IRQ/ReadWritePort.s
+    ${CMAKE_CURRENT_LIST_DIR}/Sources/IRQ/IDT.s
 
     ${CMAKE_CURRENT_LIST_DIR}/Sources/Kernel/GDT/GDT.c
     ${CMAKE_CURRENT_LIST_DIR}/Sources/Kernel/GDT/GDT.h
-    ${CMAKE_CURRENT_LIST_DIR}/Sources/Kernel/GDT/GDTFlush.s
-    ${CMAKE_CURRENT_LIST_DIR}/Sources/Kernel/Kernel.c
+    ${CMAKE_CURRENT_LIST_DIR}/Sources/Kernel/GDT/Flush.s
+    ${CMAKE_CURRENT_LIST_DIR}/Sources/Kernel/Main.c
 
-    ${CMAKE_CURRENT_LIST_DIR}/Sources/Keyboard/KeyboardHandler.s
-    ${CMAKE_CURRENT_LIST_DIR}/Sources/Keyboard/KeyboardMap.h
+    ${CMAKE_CURRENT_LIST_DIR}/Sources/Keyboard/Map.h
     ${CMAKE_CURRENT_LIST_DIR}/Sources/Keyboard/Keyboard.c
     ${CMAKE_CURRENT_LIST_DIR}/Sources/Keyboard/Keyboard.h
 )

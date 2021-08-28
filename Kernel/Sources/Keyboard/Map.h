@@ -21,7 +21,7 @@
 
 #pragma once
 
-unsigned char keyboardMap[128] = {
+unsigned char Keyboard_Map[128] = {
         0,  27, '1', '2', '3', '4', '5', '6', '7', '8',	/* 9 */
         '9', '0', '-', '=', '\b',	/* Backspace */
         '\t',			/* Tab */

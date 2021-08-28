@@ -25,7 +25,7 @@
 
 int putchar(int intc) {
 #if defined(__is_libk)
-	terminalPutChar((char)intc);
+	Terminal_Put_Character((char)intc);
 #endif
 
 	return intc;

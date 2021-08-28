@@ -17,15 +17,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-.section .init
-.global _init
+.extern gdt_pointer
 
-_init:
-	push %ebp
-	movl %esp, %ebp
+.global GDT_Flush
 
-.section .fini
-.global _fini
-_fini:
-	push %ebp
-	movl %esp, %ebp
+GDT_Flush:
+    lgdt (gdt_pointer)
+    mov $0x10, %ax      # 0x10 is the offset in the GDT to the data segment
+    mov %ax, %ds
+    mov %ax, %es
+    mov %ax, %fs
+    mov %ax, %gs
+    mov %ax, %ss
+    jmp $0x08, $flush2
+flush2:
+    ret

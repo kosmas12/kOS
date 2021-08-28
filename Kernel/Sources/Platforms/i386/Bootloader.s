@@ -43,7 +43,7 @@ stack_top:
 _start:
 	mov $stack_top, %esp
 
-	call kernel_main
+	call kOS_main
 
 	cli
 1:	hlt

@@ -17,18 +17,21 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# TODO: clean this up
-
-.global readPort
-.global writePort
-
-readPort:
-	movl 4(%esp), %edx
-	inb %dx, %al
+.section .init
+	popl %ebp
 	ret
 
-writePort:
-	movl  4(%esp), %edx
-	movb  8(%esp), %al
-	outb  %al, %dx
+.global _init
+
+_init:
+	push %ebp
+	movl %esp, %ebp
+
+.section .fini
+	popl %ebp
 	ret
+
+.global _fini
+_fini:
+	push %ebp
+	movl %esp, %ebp

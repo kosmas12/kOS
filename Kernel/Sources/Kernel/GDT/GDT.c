@@ -19,39 +19,30 @@
 
 #include "GDT.h"
 
-/* Our GDT, with 3 entries, and finally our special GDT pointer */
-struct GDTEntry GDT[3];
-struct GDTPtr gp;
+GDT_Pointer gdt_pointer;
 
-/* Setup a descriptor in the Global Descriptor Table */
-void GDTSetGate(int num, unsigned long base, unsigned long limit, unsigned char access, unsigned char gran) {
-    /* Setup the descriptor base address */
-    GDT[num].baseLow = (base & 0xFFFF);
-    GDT[num].baseMiddle = (base >> 16) & 0xFF;
-    GDT[num].baseHigh = (base >> 24) & 0xFF;
+static GDT_Entry gdt[3];
 
-    /* Setup the descriptor limits */
-    GDT[num].limitLow = (limit & 0xFFFF);
-    GDT[num].granularity = ((limit >> 16) & 0x0F);
+void GDT_Set_Gate(int number, unsigned long base, unsigned long limit, unsigned char access, unsigned char granularity)
+{
+    gdt[number].base_low    = (base & 0xFFFF);
+    gdt[number].base_middle = (base >> 16) & 0xFF;
+    gdt[number].base_high   = (base >> 24) & 0xFF;
+    gdt[number].limit_low   = (limit & 0xFFFF);
+    gdt[number].access      = access;
 
-    /* Finally, set up the granularity and access flags */
-    GDT[num].granularity |= (gran & 0xF0);
-    GDT[num].access = access;
+    gdt[number].granularity = ((limit >> 16) & 0x0F);
+    gdt[number].granularity |= (granularity & 0xF0);
 }
 
-/* Initializes GDT with 3 entries and applies changes */
-void GDTInstall() {
-    gp.limit = (sizeof(struct GDTEntry) * 3) - 1;
-    gp.base = (unsigned int) &GDT;
+void GDT_Install()
+{
+    gdt_pointer.limit   = (sizeof(GDT_Entry) * 3) - 1;
+    gdt_pointer.base    = (unsigned int)&gdt;
 
-    // Code segment
-    GDTSetGate(0, 0, 0, 0, 0);
+    GDT_Set_Gate(0, 0, 0, 0, 0);                // Code
+    GDT_Set_Gate(1, 0, 0xFFFFFFFF, 0x9A, 0xCF);
+    GDT_Set_Gate(2, 0, 0xFFFFFFFF, 0x92, 0xCF); // Data
 
-    GDTSetGate(1, 0, 0xFFFFFFFF, 0x9A, 0xCF);
-
-    // Data segment
-    GDTSetGate(2, 0, 0xFFFFFFFF, 0x92, 0xCF);
-
-    // Apply changes
-    GDTFlush();
+    GDT_Flush();
 }

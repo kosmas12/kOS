@@ -17,11 +17,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-// TODO: clean this up
-
 #pragma once
 
 #define KEYBOARD_COMMAND_PORT 0x64
 #define KEYBOARD_DATA_PORT 0x60
 
-void kbInit(void);
+void Keyboard_Init(void);

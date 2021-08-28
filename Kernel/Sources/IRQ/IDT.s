@@ -17,11 +17,23 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# TODO: clean this up
+.global IDT_Read
+.global IDT_Write
+.global IDT_Load
 
-.global keyboardHandler
-.extern keyboardHandlerMain
+IDT_Load:
+	mov 4(%esp), %edx
+	lidt (%edx)
+	sti
+	ret
 
-keyboardHandler:
-	call keyboardHandlerMain
-	iret
+IDT_Read:
+	movl 4(%esp), %edx
+	inb %dx, %al
+	ret
+
+IDT_Write:
+	movl  4(%esp), %edx
+	movb  8(%esp), %al
+	outb  %al, %dx
+	ret

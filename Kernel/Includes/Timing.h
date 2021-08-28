@@ -17,14 +17,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-// TODO: clean this up
-
 #pragma once
 
-#pragma once
-
-/* FIXME: This is highly dependent on CPU speed and compiler optimizations, add better implementation */
+// FIXME: This is highly dependent on CPU speed and compiler optimizations, add better implementation
 void delay(int t)
 {
-    for (volatile int i  =0; i < t; i++) for (volatile int j = 0; j < 300000; j++) __asm__("NOP");
+    for (volatile int i = 0; i < t; i++) for (volatile int j = 0; j < 300000; j++) __asm__("nop");
 }

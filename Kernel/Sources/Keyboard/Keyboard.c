@@ -17,71 +17,60 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-// TODO: clean this up (and fix it too)
-
-#include "../IRQ/IDT.h"
 #include "Keyboard.h"
-#include "KeyboardMap.h"
-#include <stdio.h>
-#include <stdint.h>
+#include "Map.h"
+
 #include <Kernel/TerminalIO.h>
 
-uint8_t caps = 0;
+#include "../IRQ/IDT.h"
 
-void kbInit(void) {
-    // Enable IRQ1 *ONLY* (required for keyboard)
-    writePort(PIC1_DATA_PORT, 0xFD);
+#include <stdio.h>
+#include <stdint.h>
+
+static uint8_t caps = 0;
+
+void Keyboard_Init(void)
+{
+    IDT_Write(PIC1_DATA_PORT, 0xFD); // Enable IRQ1 *ONLY* (required for keyboard)
 }
 
-void keyboardHandlerMain(void) {
-    unsigned char status;
-    char keycode;
+void Keyboard_Handler(void)
+{
+    IDT_Write(PIC1_COMMAND_PORT, 0x20);
 
-    /* write EOI */
-    writePort(PIC1_COMMAND_PORT, 0x20);
+    uint8_t status = IDT_Read(KEYBOARD_COMMAND_PORT);
+    if (status & 0x01) // Lowest bit of status will be set if buffer is not empty
+    {
+        int8_t keycode = IDT_Read(KEYBOARD_DATA_PORT);
+        if (keycode < 0) return;
 
-    status = readPort(KEYBOARD_COMMAND_PORT);
-    /* Lowest bit of status will be set if buffer is not empty */
-    if (status & 0x01) {
-        keycode = readPort(KEYBOARD_DATA_PORT);
-
-        if(keycode < 0) {
-            return;
-        }
-
-        if (keycode == 0x3A) {
+        if (keycode == 0x3A)
+        {
             caps = !caps;
             return;
         }
 
-        if (keycode == 0x0E) {
-            if (terminalGetCursorX() == 0 && terminalGetCursorY() > 0) {
-                terminalSetCursorPosition(79, terminalGetCursorY() - 1);
-            }
-            else if (terminalGetCursorX() > 0){
-                terminalSetCursorPosition(terminalGetCursorX() - 1, terminalGetCursorY());
-            }
+        if (keycode == 0x0E)
+        {
+            if (Terminal_Get_Cursor_X() == 0 && Terminal_Get_Cursor_Y() > 0) Terminal_Set_Cursor_Position(79, Terminal_Get_Cursor_Y() - 1);
+            else if (Terminal_Get_Cursor_X() > 0) Terminal_Set_Cursor_Position(Terminal_Get_Cursor_X() - 1, Terminal_Get_Cursor_Y());
 
             putchar(' ');
 
-            if (terminalGetCursorX() == 0 && terminalGetCursorY() > 0) {
-                terminalSetCursorPosition(79, terminalGetCursorY() - 1);
-            }
-            else if (terminalGetCursorX() > 0){
-                terminalSetCursorPosition(terminalGetCursorX() - 1, terminalGetCursorY());
-            }
+            if (Terminal_Get_Cursor_X() == 0 && Terminal_Get_Cursor_Y() > 0) Terminal_Set_Cursor_Position(79, Terminal_Get_Cursor_Y() - 1);
+            else if (Terminal_Get_Cursor_X() > 0) Terminal_Set_Cursor_Position(Terminal_Get_Cursor_X() - 1, Terminal_Get_Cursor_Y());
 
             return;
         }
 
-        if (caps) {
-            if (keyboardMap[(unsigned char) keycode] >= 'a' && keyboardMap[(unsigned char) keycode] <= 'z') {
-                // Do some ASCII table magic
-                putchar(keyboardMap[(unsigned char) keycode] - 32);
-                return;
-            }
+        if (caps && Keyboard_Map[(uint8_t)keycode] >= 'a' && Keyboard_Map[(uint8_t)keycode] <= 'z')
+        {
+            putchar(Keyboard_Map[(uint8_t)keycode] - 32);
+            return;
         }
 
-        putchar(keyboardMap[(unsigned char) keycode]);
+        putchar(Keyboard_Map[(uint8_t)keycode]);
     }
+
+    __asm__("iret");
 }

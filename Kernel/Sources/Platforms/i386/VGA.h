@@ -21,29 +21,25 @@
 
 #include <stdint.h>
 
-/// Describes various VGA color values.
-typedef enum VGA_Color
+enum VGA_Color
 {
     VGA_Color_Black,
     VGA_Color_Blue,
     VGA_Color_Green,
-    VGA_Color_Cyan,
+    VGA_Color_Turqoise,     // Cyan
     VGA_Color_Red,
     VGA_Color_Magenta,
     VGA_Color_Brown,
     VGA_Color_Light_Gray,
-    VGA_Color_Dark_Gray,
+    VGA_Color_Gray,         // Dark Gray
     VGA_Color_Light_Blue,
     VGA_Color_Light_Green,
-    VGA_Color_Light_Cyan,
+    VGA_Color_Cyan,         // Light Cyan
     VGA_Color_Light_Red,
-    VGA_Color_Light_Magenta,
-    VGA_Color_Light_Brown,
+    VGA_Color_Pink,         // Light Magenta
+    VGA_Color_Yellow,       // Light Brown
     VGA_Color_White
-} VGA_Color;
+};
 
-/// Generates a full VGA color value.
 #define VGA_COLOR(foreground, background) ((uint8_t)(foreground | background << 4))
-
-/// Generates a VGA character.
 #define VGA_TEXT(text, color) ((uint16_t)((uint16_t)text | (uint16_t)color << 8))

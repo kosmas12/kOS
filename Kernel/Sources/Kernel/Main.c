@@ -17,34 +17,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-// TODO: clean this up
-
-#if defined(__linux__)
-#error "You are not using a cross-compiler, this won't work"
-#endif
-
-#if !defined(__i386__)
-#error "This kernel is designed for 32 bit systems, please use a compiler that targets i686"
-#endif
-
-#include <stdio.h>
-
 #include "GDT/GDT.h"
-#include "../IRQ/IDT.h"
-#include "../Keyboard/Keyboard.h"
+
 #include <Kernel/TerminalIO.h>
 
-// Kernel entry point. Ignore any warnings saying this isn't used, it's called by the bootloader
-void kernel_main(void) {
-    terminalInit();
+#include "../IRQ/IDT.h"
+#include "../Keyboard/Keyboard.h"
 
-    GDTInstall();
+#include <stdbool.h>
+#include <stdio.h>
 
-    IDTInit();
-    kbInit();
+void kOS_main(void)
+{
+    Terminal_Init();
 
-    // With our inits above, we can respond to user input despite the empty infinite loop
-    while (1);
+    GDT_Install();
+    IDT_Init();
+    //Keyboard_Init();
 
+    while (true) ;
 }
-

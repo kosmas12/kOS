@@ -22,14 +22,17 @@
 #include <stddef.h>
 #include <stdint.h>
 
-void terminalSetCursorPosition(size_t x, size_t y);
-size_t terminalGetCursorX();
-size_t terminalGetCursorY();
-void terminalClearScreen();
-void terminalInit(void);
-void terminalScrollUp();
-void terminalSetColor(uint8_t color);
-void terminalWriteVGA(char c, uint8_t color, size_t x, size_t y);
-void terminalPutChar(char c);
-void terminalPrintData(const char* data, size_t size);
-void terminalPrint(const char* data);
+void Terminal_Init(void);
+
+size_t Terminal_Get_Cursor_X();
+size_t Terminal_Get_Cursor_Y();
+void Terminal_Set_Cursor_Position(size_t x, size_t y);
+
+void Terminal_Set_Color(uint8_t color);
+void Terminal_Scroll_Up();
+void Terminal_Clear_Screen();
+
+void Terminal_Put_Character(char c);
+void Terminal_Print_Data(const char* data, size_t size);
+void Terminal_Print(const char* data);
+void Terminal_Write_VGA(char c, uint8_t color, size_t x, size_t y);

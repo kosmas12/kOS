@@ -17,35 +17,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-// TODO: clean this up
-
 #pragma once
 
-#pragma once
+//#pragma pack (push, 1)
+typedef struct __attribute__((__packed__))  GDT_Entry
+{
+    unsigned short  limit_low;
+    unsigned short  base_low;
+    unsigned char   base_middle;
+    unsigned char   access;
+    unsigned char   granularity;
+    unsigned char   base_high;
+} __attribute__((__packed__)) GDT_Entry;
 
-/* Defines a GDT entry. We say packed, because it prevents the
-*  compiler from doing things that it thinks is best: Prevent
-*  compiler "optimization" by packing */
-struct GDTEntry {
-    unsigned short limitLow;
-    unsigned short baseLow;
-    unsigned char baseMiddle;
-    unsigned char access;
-    unsigned char granularity;
-    unsigned char baseHigh;
-} __attribute__((packed));
+typedef struct __attribute__((__packed__)) GDT_Pointer
+{
+    unsigned short  limit;
+    unsigned int    base;
+} __attribute__((__packed__)) GDT_Pointer;
+//#pragma pack (pop)
 
-/* Special pointer which includes the limit: The max bytes
-*  taken up by the GDT, minus 1. Again, this NEEDS to be packed */
-struct GDTPtr {
-    unsigned short limit;
-    unsigned int base;
-} __attribute__((packed));
+extern void GDT_Flush();
 
-/* This will be a function in start.asm. We use this to properly
-*  reload the new segment registers */
-extern void GDTFlush();
-
-void GDTSetGate(int num, unsigned long base, unsigned long limit, unsigned char access, unsigned char gran);
-void GDTInstall();
-
+void GDT_Set_Gate(int number, unsigned long base, unsigned long limit, unsigned char access, unsigned char granularity);
+void GDT_Install();
