@@ -48,3 +48,5 @@ add_dependencies(kOS.Kernel kOS.libc)
 target_link_libraries(kOS.Kernel PRIVATE kOS.libc)
 
 target_link_options(kOS.Kernel PRIVATE -T${CMAKE_CURRENT_LIST_DIR}/Sources/Platforms/i386/Format.ld)
+
+kOS_Generate_Target_Data(kOS.Kernel)

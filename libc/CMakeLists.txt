@@ -48,3 +48,5 @@ target_include_directories(kOS.libc
 
     PRIVATE ${CMAKE_CURRENT_LIST_DIR}/../Kernel/Includes # TODO: find a better way of doing this
 )
+
+kOS_Generate_Target_Data(kOS.libc)

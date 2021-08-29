@@ -17,28 +17,24 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-set(CMAKE_SYSTEM_NAME Generic)
+function(kOS_Generate_Target_Data target)
+    target_compile_options(${target} PRIVATE
+        --target=i386-pc-unknown
+        -m32
 
-cmake_minimum_required(VERSION 3.0.0)
-project(kOS VERSION 1.0.0)
+        -ffreestanding
+        -fno-builtin
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/BuildScripts)
+        -nostdinc
+        -nostdinc++
 
-enable_language(ASM)
-enable_language(C)
-enable_language(CXX)
+        -Wall
+        -Werror
+        -Wno-unused-command-line-argument
+    )
 
-if(NOT ${CMAKE_ASM_COMPILER_ID} STREQUAL "Clang" OR NOT ${CMAKE_C_COMPILER_ID} STREQUAL "Clang" OR NOT ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
-    message(FATAL_ERROR "kOS does not support GCC, MSVC and other compilers other than LLVM.")
-endif()
-
-if(${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Windows")
-    find_program(LD_LLD NAMES ld.lld REQUIRED)
-    set(CMAKE_C_LINK_EXECUTABLE "\"${LD_LLD}\" <OBJECTS> -o <TARGET> <LINK_LIBRARIES> <LINK_FLAGS>")
-endif()
-
-include(Utilities)
-
-add_subdirectory(EFI)
-add_subdirectory(libc)
-add_subdirectory(Kernel)
+    target_link_options(${target} PRIVATE -nostdlib)
+    if(NOT ${CMAKE_HOST_SYSTEM_NAME} STREQUAL "Windows")
+        target_link_options(${target} PRIVATE --target=i386-pc-unknown) # TODO: fix LLD's problems outside of Windows
+    endif()
+endfunction(kOS_Generate_Target_Data)
