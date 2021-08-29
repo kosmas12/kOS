@@ -20,6 +20,7 @@
 project(kOS.EFI LANGUAGES C VERSION 1.0.0)
 
 add_executable(kOS.EFI
+    ${CMAKE_CURRENT_LIST_DIR}/Includes/EFI/Protocols/DevicePath.h
     ${CMAKE_CURRENT_LIST_DIR}/Includes/EFI/Protocols/TextInput.h
     ${CMAKE_CURRENT_LIST_DIR}/Includes/EFI/Protocols/TextOutput.h
     ${CMAKE_CURRENT_LIST_DIR}/Includes/EFI/Services/ABI.h
@@ -27,14 +28,10 @@ add_executable(kOS.EFI
     ${CMAKE_CURRENT_LIST_DIR}/Includes/EFI/Services/Runtime.h
     ${CMAKE_CURRENT_LIST_DIR}/Includes/EFI/ConfigurationTable.h
     ${CMAKE_CURRENT_LIST_DIR}/Includes/EFI/Entry.h
-    ${CMAKE_CURRENT_LIST_DIR}/Includes/EFI/Event.h
-    ${CMAKE_CURRENT_LIST_DIR}/Includes/EFI/GUID.h
-    ${CMAKE_CURRENT_LIST_DIR}/Includes/EFI/Handle.h
-    ${CMAKE_CURRENT_LIST_DIR}/Includes/EFI/MemoryDescriptor.h
+    ${CMAKE_CURRENT_LIST_DIR}/Includes/EFI/Memory.h
     ${CMAKE_CURRENT_LIST_DIR}/Includes/EFI/Status.h
-    ${CMAKE_CURRENT_LIST_DIR}/Includes/EFI/SystemTable.h
-    ${CMAKE_CURRENT_LIST_DIR}/Includes/EFI/TableHeader.h
     ${CMAKE_CURRENT_LIST_DIR}/Includes/EFI/Time.h
+    ${CMAKE_CURRENT_LIST_DIR}/Includes/EFI/Types.h
     ${CMAKE_CURRENT_LIST_DIR}/Includes/EFI.h
 
     ${CMAKE_CURRENT_LIST_DIR}/Sources/Main.c
