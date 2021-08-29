@@ -1,6 +1,10 @@
 # kOS
 A test operating system made for fun
 
+# ARCHIVAL NOTICE
+This repository has been archived. It will stay here,
+however development of kOS has moved over to this
+organization: https://github.com/koperatingsystem
 
 # Stage 1 Bootloader (Deprecated)
 The bootloader is designed with floppy disks and x86 
